@@ -6,6 +6,12 @@ def createUser(email, password, isUser): #createUser name email password
   connection = sqlite3.connect('main.db')
   cursor = connection.cursor()
 
+  cursor.execute("SELECT email FROM users WHERE email = ?", (email,))
+  isAvailabe = cursor.fetchone()
+  print(isAvailabe)
+  if isAvailabe != None:
+    return "f" 
+
   cursor.execute("SELECT max(uID) FROM users")
   uID = cursor.fetchone()
   
