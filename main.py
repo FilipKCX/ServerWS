@@ -249,27 +249,24 @@ def create_http_response(status_code, content):
 
 def main():
     
-    # Erstelle einen Server-Socket
+
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0)
 
-    # Binde den Server-Socket an einen Port
     server_socket.bind((HOST, PORT))
 
-    # Höre auf eingehende Verbindungen
+
     server_socket.listen()
 
     print("polling...")
 
-    # Verarbeite eingehende Verbindungen
     while True:
-        # Nimm eine Verbindung an
+
 
         client_socket, _ = server_socket.accept()
         print("connected")
         data = client_socket.recv(1024)
         print(data)
-        # Verarbeite die HTTP-Anfrage
-        
+        # Verarbeite die HTTP-Anfrage        
         task = threading.Thread(target=handle_http_request, args=(client_socket, data))
         task.start()
 
